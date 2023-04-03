@@ -1,4 +1,4 @@
-# chatgpt-telegram-bot
+# bingchat-telegram-bot
 Use BingChat on Telegram.
 
 ## Instructions
@@ -15,7 +15,7 @@ Use BingChat on Telegram.
 - Click "Export" in the lower right corner (this will save the content to your clipboard)
 - Paste the contents of your clipboard into the `cookies.json` file
 
-# chatgpt-telegram-bot
+# bingchat-telegram-bot
 在 Telegram 上使用 BingChat。
 
 ## 使用方法
