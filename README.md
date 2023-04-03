@@ -15,6 +15,12 @@ Use BingChat on Telegram.
 - Click "Export" in the lower right corner (this will save the content to your clipboard)
 - Paste the contents of your clipboard into the `cookies.json` file
 
+## Bot commands
+- `/start` - Reset conversation
+- `/creative` - Creative style
+- `/balanced` - Balanced style
+- `/precise` - Precise style
+
 # bingchat-telegram-bot
 在 Telegram 上使用 BingChat。
 
@@ -32,3 +38,8 @@ Use BingChat on Telegram.
 - 点击右下角的"导出" (将会把内容保存到你的剪贴板上)
 - 把你剪贴板上的内容粘贴到 `cookies.json` 文件中
 
+## 机器人命令
+- `/start` - 重置对话
+- `/creative` - Creative 创意风格 
+- `/balanced` - Balanced 平衡风格
+- `/precise` - Precise 精确风格
