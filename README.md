@@ -1,14 +1,14 @@
-#chatgpt-telegram-bot
+# chatgpt-telegram-bot
 Use BingChat on Telegram.
 
-# Instructions
+## Instructions
 1. Set `bot_token` and `allowed_users` in `main.py`.
 2. Installation depends on `pip install --upgrade python-telegram-bot EdgeGPT`
 3. Get Cookies and save them in `cookies.json` file
 4. Run `python main.py`
 5. Use BingChat on Telegram
 
-# Get Cookies
+## Get Cookies
 - Install the cookie editor extension for Chrome or Firefox
 - Move to `bing.com`
 - Open the extension
@@ -18,14 +18,14 @@ Use BingChat on Telegram.
 # chatgpt-telegram-bot
 在 Telegram 上使用 BingChat。
 
-# 使用方法
+## 使用方法
 1. 设置`main.py`中的`bot_token`与`allowed_users`。
 2. 安装依赖`pip install --upgrade python-telegram-bot EdgeGPT`
 3. 获取 Cookies 保存至 `cookies.json` 文件中
 4. 运行`python main.py`
 5. 在 Telegram 上使用 BingChat
 
-# 获取Cookies
+## 获取Cookies
 - 安装 Chrome或 Firefox 的 cookie editor 扩展
 - 移步到 `bing.com`
 - 打开扩展程序
