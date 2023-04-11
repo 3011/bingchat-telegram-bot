@@ -72,7 +72,7 @@ async def reply(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text(text="You are not allowed to use this bot.")
         return
 
-    for i in range(retry_count):
+    for i in range(retry_count + 1):
         is_succeed = False
         message = update.message.text
         if i == 0:
@@ -88,6 +88,7 @@ async def reply(update: Update, context: ContextTypes.DEFAULT_TYPE):
             prev_reply_text = ""
             async for is_done, res in bing.get_reply_stream(message):
                 if is_done:
+                    is_succeed = True
                     reply_text, inline_keyboard = await handle_bing_reply(res)
                     if reply_text.strip() != prev_reply_text.strip() or inline_keyboard:
                         try:
@@ -96,14 +97,13 @@ async def reply(update: Update, context: ContextTypes.DEFAULT_TYPE):
                                 parse_mode=ParseMode.MARKDOWN,
                                 reply_markup=InlineKeyboardMarkup(inline_keyboard),
                             )
-                            is_succeed = True
                         except Exception:
                             try:
                                 await reply_message.edit_text(
                                     text="[Default ParseMode]\n" + reply_text
                                 )
-                                is_succeed = True
                             except Exception as err:
+                                is_succeed = False
                                 await reset_reply(reply_message.edit_text, str(err))
                 else:
                     if time.time() - prev_time > message_update_time and res:
