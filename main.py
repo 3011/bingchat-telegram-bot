@@ -1,6 +1,5 @@
 import re
 import time
-import asyncio
 import logging
 from telegram import (
     Update,
@@ -24,13 +23,14 @@ logging.basicConfig(
 
 conversation_style = "balanced"  # 默认对话风格
 bot_token = ""  # 机器人的token
-allowed_users = []  # 允许使用机器人的用户的id，建议个人使用
+allowed_users = []  # int，允许使用机器人的用户的id，建议个人使用
 message_update_time = 1.5  # 回复的更新间隔时间
-
-lock = asyncio.Lock()
+retry_count = 3
 
 
 async def reset_reply(reply_message, more=""):
+    if more:
+        more = "\n\n" + more
     await bing.reset_chat()
     await reply_message(
         text="Conversation has been reset.\nConversation style is %s.%s"
@@ -72,46 +72,50 @@ async def reply(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text(text="You are not allowed to use this bot.")
         return
 
-    message = update.message.text
-    reply_message = await update.message.reply_text(text="Bing is typing...")
+    for i in range(retry_count):
+        is_succeed = False
+        message = update.message.text
+        if i == 0:
+            reply_message = await update.message.reply_text(text="Bing is typing...")
+        else:
+            reply_message = await update.message.reply_text(
+                text="An error occurred, Conversation has been reset.\nRetrying(%s)..."
+                % i
+            )
 
-    try:
-        prev_time = time.time()
-        prev_reply_text = ""
-        async for is_done, res in bing.get_reply_stream(message):
-            if is_done:
-                try:
+        try:
+            prev_time = time.time()
+            prev_reply_text = ""
+            async for is_done, res in bing.get_reply_stream(message):
+                if is_done:
                     reply_text, inline_keyboard = await handle_bing_reply(res)
                     if reply_text.strip() != prev_reply_text.strip() or inline_keyboard:
-                        await reply_message.edit_text(
-                            text=reply_text,
-                            parse_mode=ParseMode.MARKDOWN,
-                            reply_markup=InlineKeyboardMarkup(inline_keyboard),
-                        )
-                except Exception as err:
-                    print(err)
-                    try:
-                        await reply_message.edit_text(
-                            text="[Default ParseMode]\n" + reply_text
-                        )
-                    except:
-                        await reset_reply(
-                            reply_message.edit_text, more="\n\nError in done."
-                        )
-            else:
-                if time.time() - prev_time > message_update_time and res:
-                    prev_time = time.time()
-                    try:
+                        try:
+                            await reply_message.edit_text(
+                                text=reply_text,
+                                parse_mode=ParseMode.MARKDOWN,
+                                reply_markup=InlineKeyboardMarkup(inline_keyboard),
+                            )
+                            is_succeed = True
+                        except Exception:
+                            try:
+                                await reply_message.edit_text(
+                                    text="[Default ParseMode]\n" + reply_text
+                                )
+                                is_succeed = True
+                            except Exception as err:
+                                await reset_reply(reply_message.edit_text, str(err))
+                else:
+                    if time.time() - prev_time > message_update_time and res:
+                        prev_time = time.time()
                         prev_reply_text = res
                         await reply_message.edit_text(
                             text=res,
                         )
-                    except:
-                        await reset_reply(
-                            reply_message.edit_text, more="\n\nError in not done."
-                        )
-    except:
-        await reset_reply(reply_message.edit_text)
+        except Exception as err:
+            await reset_reply(reply_message.edit_text, str(err))
+        if is_succeed:
+            break
 
 
 async def creative(update: Update, context: ContextTypes.DEFAULT_TYPE):
