@@ -88,8 +88,8 @@ async def reply(update: Update, context: ContextTypes.DEFAULT_TYPE):
             prev_reply_text = ""
             async for is_done, res in bing.get_reply_stream(message):
                 if is_done:
-                    is_succeed = True
                     reply_text, inline_keyboard = await handle_bing_reply(res)
+                    is_succeed = True
                     if reply_text.strip() != prev_reply_text.strip() or inline_keyboard:
                         try:
                             await reply_message.edit_text(
