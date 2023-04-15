@@ -51,7 +51,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def handle_bing_reply(res):
     source_button_keyboard = []
-    if "message" not in res["item"]:
+    if "messages" not in res["item"]:
         raise Exception("The conversation may have been deleted due to timeout.")
 
     if "sourceAttributions" in res["item"]["messages"][1]:
