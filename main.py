@@ -24,7 +24,7 @@ logging.basicConfig(
 conversation_style = "balanced"  # 默认对话风格
 bot_token = ""  # 机器人的token
 allowed_users = []  # int，允许使用机器人的用户的id，建议个人使用
-message_update_time = 1.5  # 回复的更新间隔时间
+message_update_time = 1.5  # (s)回复的更新间隔时间
 retry_count = 3
 
 
