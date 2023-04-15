@@ -21,10 +21,10 @@ logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
 )
 
-conversation_style = "balanced"  # 默认对话风格
-bot_token = ""  # 机器人的token
-allowed_users = []  # int，允许使用机器人的用户的id，建议个人使用
-message_update_time = 1.5  # (s)回复的更新间隔时间
+conversation_style = "balanced"  # Default conversation style 默认对话风格
+bot_token = ""  # Bot token 机器人token
+allowed_users = []  # user_id(int) Allowed users, 允许使用机器人的用户的id，建议个人使用
+message_update_time = 1.5  # (s) Message update time on reply 回复的更新间隔时间
 retry_count = 3
 
 
