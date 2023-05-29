@@ -4,8 +4,8 @@ Use BingChat on Telegram.
 ## Instructions
 1. Set `bot_token` and `allowed_users` in `main.py`.
 2. Installation depends on `pip install --upgrade python-telegram-bot EdgeGPT`
-3. Get Cookies and save them in `cookies.json` file
-4. Run `python main.py`
+3. Run `python main.py`
+4. Get Cookies and save to a file with any name, then send the file to Bot (optional, when Cookies are not set, the continuous conversation limit is 5)
 5. Use BingChat on Telegram
 
 ## Get Cookies
@@ -27,8 +27,8 @@ Use BingChat on Telegram.
 ## 使用方法
 1. 设置`main.py`中的`bot_token`与`allowed_users`。
 2. 安装依赖`pip install --upgrade python-telegram-bot EdgeGPT`
-3. 获取 Cookies 保存至 `cookies.json` 文件中
-4. 运行`python main.py`
+3. 运行`python main.py`
+4. 获取 Cookies 保存至任意文件名的文件中，将该文件发送给 Bot（可选，未设置Cookies时，连续对话限制为5条）
 5. 在 Telegram 上使用 BingChat
 
 ## 获取Cookies
